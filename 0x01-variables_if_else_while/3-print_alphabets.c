@@ -7,23 +7,23 @@
  */
 int main(void)
 {
-    char letter = 'a';
-    char letter2 = 'A';
+	char letter = 'a';
+	char letter2 = 'A';
 
-    while (letter <= 'z')
-    {
-        putchar(letter);
-        letter++;
-    }
+	while (letter <= 'z')
+	{
+		putchar(letter);
+		letter++;
+	}
 
-    while (letter2 <= 'Z')
-    {
-        putchar(letter2);
-        letter2++;
-    }
+	while (letter2 <= 'Z')
+	{
+		putchar(letter2);
+		letter2++;
+	}
 
-    putchar('\n'); /* Add a new line */
+	putchar('\n'); /* Add a new line */
 
-    return 0;
+	return (0);
 }
 
