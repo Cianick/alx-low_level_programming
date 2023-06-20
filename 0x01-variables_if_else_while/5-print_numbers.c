@@ -7,15 +7,13 @@
  */
 int main(void)
 {
-    int number;
+	int digit;
 
-    for (number = 0; number <= 9; number++)
-    {
-        printf("%d ", number);
-    }
+	for (digit = 0; digit < 10; digit++)
+		putchar(digit + '0');
 
-    printf("\n");
+	putchar('\n');
 
-    return (0);
+	return (0);
 }
 
