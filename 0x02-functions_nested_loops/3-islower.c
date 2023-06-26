@@ -1,0 +1,1 @@
+#include "main.h"\n\n/**\n * _islower - check if char is lowercase\n * @c: is the char to be checked\n * Return: 1 if char is lowercase, otherwise 0.\n */\nint _islower(int c)\n{\n\tif (c >= 'a' && c <= 'z')\n\t\treturn (1);\n\telse\n\t\treturn (0);\n}

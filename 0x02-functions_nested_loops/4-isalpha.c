@@ -1,0 +1,1 @@
+#include "main.h"\n\n/**\n * _isalpha - checks for alphabetic character\n * @c: the character to be checked\n * Return: 1 if c is a letter, 0 otherwise\n */\nint _isalpha(int c)\n{\n\treturn ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));\n}
