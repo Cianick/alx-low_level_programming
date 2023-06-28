@@ -1,1 +1,29 @@
-#include "main.h"\n\n/**\n * print_sign - prints the sign of a number\n * @n: the int to check\n * Return: 1 and prints + if n is greater than zero\n * 0 and prints 0 if n is zero\n * -1 and prints - if n is less than zero\n */\nint print_sign(int n)\n{\n\tif (n > 0)\n\t{\n\t\t_putchar('+');\n\t\treturn (1);\n\t}\n\telse if (n == 0)\n\t{\n\t\t_putchar('0');\n\t\treturn (0);\n\t}\n\telse if (n < 0)\n\t{\n\t\t_putchar('-');\n\t\treturn (-1);\n\t}\n}
+# include "main.h"
+/**
+ * print_sign-check the sign of a number.
+ *
+ * @n:Number whose sign is to be checked.
+ * Return:1-if n is greater than 0: 0- if n equals 0:-1-if n is less than 0
+ */
+
+
+
+int print_sign(int n)
+{
+	if (n > 0)
+	{
+		_putchar('+');
+		return (1);
+	}
+	else if (n < 0)
+	{
+		_putchar ('-');
+		return (-1);
+	}
+	else
+	{
+		_putchar('0');
+		return (0);
+	}
+}
+
