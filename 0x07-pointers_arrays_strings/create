@@ -1,0 +1,201 @@
+#!/bin/bash
+
+# Create main.h file
+cat > main.h <<EOF
+#ifndef MAIN_H
+#define MAIN_H
+
+char *_memset(char *s, char b, unsigned int n);
+int _putchar(char c);
+char *_memcpy(char *dest, char *src, unsigned int n);
+char *_strchr(char *s, char c);
+unsigned int _strspn(char *s, char *accept);
+char *_strpbrk(char *s, char *accept);
+char *_strstr(char *haystack, char *needle);
+void print_chessboard(char (*a)[8]);
+void print_diagsums(int *a, int size);
+void set_string(char **s, char *to);
+
+#endif /* MAIN_H */
+EOF
+
+# Create _putchar.c file
+cat > _putchar.c <<EOF
+#include "main.h"
+#include <unistd.h>
+
+int _putchar(char c)
+{
+    return write(1, &c, 1);
+}
+EOF
+
+# Create 0-memset.c file
+cat > 0-memset.c <<EOF
+#include "main.h"
+
+char *_memset(char *s, char b, unsigned int n)
+{
+    unsigned int i;
+
+    for (i = 0; i < n; i++) {
+        s[i] = b;
+    }
+
+    return s;
+}
+EOF
+
+# Create 1-memcpy.c file
+cat > 1-memcpy.c <<EOF
+#include "main.h"
+
+char *_memcpy(char *dest, char *src, unsigned int n)
+{
+    unsigned int i;
+
+    for (i = 0; i < n; i++) {
+        dest[i] = src[i];
+    }
+
+    return dest;
+}
+EOF
+
+# Create 2-strchr.c file
+cat > 2-strchr.c <<EOF
+#include "main.h"
+
+char *_strchr(char *s, char c)
+{
+    while (*s) {
+        if (*s == c) {
+            return s;
+        }
+        s++;
+    }
+
+    if (*s == c) {
+        return s;
+    }
+
+    return NULL;
+}
+EOF
+
+# Create 3-strspn.c file
+cat > 3-strspn.c <<EOF
+#include "main.h"
+
+unsigned int _strspn(char *s, char *accept)
+{
+    unsigned int count = 0;
+    int i;
+
+    while (*s) {
+        for (i = 0; accept[i]; i++) {
+            if (*s == accept[i]) {
+                count++;
+                break;
+            }
+        }
+
+        if (!accept[i]) {
+            break;
+        }
+
+        s++;
+    }
+
+    return count;
+}
+EOF
+
+# Create 4-strpbrk.c file
+cat > 4-strpbrk.c <<EOF
+#include "main.h"
+
+char *_strpbrk(char *s, char *accept)
+{
+    while (*s) {
+        char *p = accept;
+
+        while (*p) {
+            if (*s == *p) {
+                return s;
+            }
+            p++;
+        }
+
+        s++;
+    }
+
+    return NULL;
+}
+EOF
+
+# Create 5-strstr.c file
+cat > 5-strstr.c <<EOF
+#include "main.h"
+
+char *_strstr(char *haystack, char *needle)
+{
+    while (*haystack) {
+        char *h = haystack;
+        char *n = needle;
+
+        while (*h && *n && *h == *n) {
+            h++;
+            n++;
+        }
+
+        if (!*n) {
+            return haystack;
+        }
+
+        haystack++;
+    }
+
+    return NULL;
+}
+EOF
+
+# Create 7-print_chessboard.c file
+cat > 7-print_chessboard.c <<EOF
+#include "main.h"
+
+void print_chessboard(char (*a)[8])
+{
+    int i, j;
+
+    for (i = 0; i < 8; i++) {
+        for (j = 0; j < 8; j++) {
+            _putchar(a[i][j]);
+        }
+        _putchar('\n');
+    }
+}
+EOF
+
+# Create 8-print_diagsums.c file
+cat > 8-print_diagsums.c <<EOF
+#include "main.h"
+#include <stdio.h>
+
+void print_diagsums(int *a, int size)
+{
+    int sum1 = 0;
+    int sum2 = 0;
+    int i;
+
+    for (i = 0; i < size; i++) {
+        sum1 += a[i * size + i];
+        sum2 += a[i * size + (size - i - 1)];
+    }
+
+    printf("%d, %d\n", sum1, sum2);
+}
+EOF
+
+echo "Files created successfully!"
+
