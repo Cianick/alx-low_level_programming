@@ -5,360 +5,519 @@ cat <<EOF > main.h
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdio.h>
-#include <unistd.h>
-
 int _putchar(char c);
-void reset_to_98(int *n);
-void swap_int(int *a, int *b);
-int _strlen(char *s);
-void _puts(char *str);
-void print_rev(char *s);
-void rev_string(char *s);
-void puts2(char *str);
-void puts_half(char *str);
-void print_array(int *a, int n);
-char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
+char *_strncat(char *dest, char *src, int n);
+char *_strncpy(char *dest, char *src, int n);
+int _strcmp(char *s1, char *s2);
+void reverse_array(int *a, int n);
+char *string_toupper(char *a);
+char *cap_string(char *a);
+char *leet(char *a);
+char *rot13(char *a);
+void print_number(int n);
+char *infinite_add(char *n1, char *n2, char *r, int size_r);
+void print_buffer(char *b, int size);
 
 #endif
 EOF
 
-# Create 0-reset_to_98.c
-cat <<EOF > 0-reset_to_98.c
-#include "main.h"
+# Create _putchar.c
+cat <<EOF > _putchar.c
+#include <unistd.h>
+
 /**
- * reset_to_98 - a function that takes a pointer to an int as parameter
- * and updates the value it points to to 98
- * @n: input
- * Return: n
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
  */
-void reset_to_98(int *n)
+int _putchar(char c)
 {
-    *n = 98;
+    return (write(1, &c, 1));
 }
 EOF
 
-# Create 1-swap.c
-cat <<EOF > 1-swap.c
-#include "main.h"
-/**
- * swap_int - swaps the values of two integers
- * @a: integer to swap
- * @b: integer to swap
- */
-void swap_int(int *a, int *b)
-{
-    int m;
-
-    m = *a;
-    *a = *b;
-    *b = m;
-}
-EOF
-
-# Create 2-strlen.c
-cat <<EOF > 2-strlen.c
-#include "main.h"
-/**
- * _strlen - returns the length of a string
- * @s: string
- * Return: length
- */
-int _strlen(char *s)
-{
-    int longi = 0;
-
-    while (*s != '\0')
-    {
-        longi++;
-        s++;
-    }
-
-    return (longi);
-}
-EOF
-
-# Create 3-puts.c
-cat <<EOF > 3-puts.c
-#include "main.h"
-/**
- * _puts - prints a string, followed by a new line, to stdout
- * @str: string to print
- */
-void _puts(char *str)
-{
-    while (*str != '\0')
-    {
-        _putchar(*str++);
-    }
-    _putchar('\n');
-}
-EOF
-
-# Create 4-print_rev.c
-cat <<EOF > 4-print_rev.c
-#include "main.h"
-/**
- * print_rev - imprime en reversa
- * @s: string
- * return: 0
- */
-void print_rev(char *s)
-{
-    int longi = 0;
-    int o;
-
-    while (*s != '\0')
-    {
-        longi++;
-        s++;
-    }
-    s--;
-    for (o = longi; o > 0; o--)
-    {
-        _putchar(*s);
-        s--;
-    }
-
-    _putchar('\n');
-}
-EOF
-
-# Create 5-rev_string.c
-cat <<EOF > 5-rev_string.c
+# Create 0-strcat.c
+cat <<EOF > 0-strcat.c
 #include "main.h"
 
 /**
- * rev_string - Reverses a string
- * @s: Input string
- * Return: String in reverse
+ * _strcat - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ *
+ * Return: pointer to the resulting string
  */
-
-void rev_string(char *s)
+char *_strcat(char *dest, char *src)
 {
-    char rev = s[0];
-    int counter = 0;
+    int dest_len = 0;
     int i;
 
-    while (s[counter] != '\0')
-        counter++;
-    for (i = 0; i < counter; i++)
-    {
-        counter--;
-        rev = s[i];
-        s[i] = s[counter];
-        s[counter] = rev;
-    }
-}
-EOF
+    while (dest[dest_len] != '\0')
+        dest_len++;
 
-# Create 6-puts2.c
-cat <<EOF > 6-puts2.c
-#include "main.h"
-/**
- * puts2 - function should print only one character out of two
- * starting with the first one
- * @str: input
- * Return: print
- */
-void puts2(char *str)
-{
-    int longi = 0;
-    int t = 0;
-    char *y = str;
-    int o;
+    for (i = 0; src[i] != '\0'; i++)
+        dest[dest_len++] = src[i];
 
-    while (*y != '\0')
-    {
-        y++;
-        longi++;
-    }
-    t = longi - 1;
-    for (o = 0; o <= t; o++)
-    {
-        if (o % 2 == 0)
-        {
-            _putchar(str[o]);
-        }
-    }
-    _putchar('\n');
-}
-EOF
-
-# Create 7-puts_half.c
-cat <<EOF > 7-puts_half.c
-#include "main.h"
-/**
- * puts_half - a function that prints half of a string
- * if odd len, n = (length_of_the_string - 1) / 2
- * @str: input
- * Return: half of input
- */
-void puts_half(char *str)
-{
-    int a, n, longi;
-
-    longi = 0;
-
-    for (a = 0; str[a] != '\0'; a++)
-        longi++;
-
-    n = (longi / 2);
-
-    if ((longi % 2) == 1)
-        n = ((longi + 1) / 2);
-
-    for (a = n; str[a] != '\0'; a++)
-        _putchar(str[a]);
-    _putchar('\n');
-}
-EOF
-
-# Create 8-print_array.c
-cat <<EOF > 8-print_array.c
-#include "main.h"
-
-/**
- * print_array - a function that prints n elements of an array
- * @a: array name
- * @n: is the number of elements OF the array to be printed
- * Return: a and n inputs
- */
-void print_array(int *a, int n)
-{
-    int i;
-
-    for (i = 0; i < (n - 1); i++)
-    {
-        printf("%d, ", a[i]);
-    }
-    if (i == (n - 1))
-    {
-        printf("%d", a[n - 1]);
-    }
-    printf("\n");
-}
-EOF
-
-# Create 9-strcpy.c
-cat <<EOF > 9-strcpy.c
-#include "main.h"
-
-/**
- * char *_strcpy - a function that copies the string pointed to by src
- * @dest: copy to
- * @src: copy from
- * Return: string
- */
-char *_strcpy(char *dest, char *src)
-{
-    int l = 0;
-    int x = 0;
-
-    while (*(src + l) != '\0')
-    {
-        l++;
-    }
-    for (; x < l; x++)
-    {
-        dest[x] = src[x];
-    }
-    dest[l] = '\0';
+    dest[dest_len] = '\0';
     return (dest);
 }
 EOF
 
-# Create 100-atoi.c
-cat <<EOF > 100-atoi.c
+# Create 1-strncat.c
+cat <<EOF > 1-strncat.c
 #include "main.h"
 
 /**
- * _atoi - converts a string to an integer
- * @s: string to be converted
+ * _strncat - concatenates two strings up to n bytes
+ * @dest: destination string
+ * @src: source string
+ * @n: maximum number of bytes to concatenate from src
  *
- * Return: the int converted from the string
+ * Return: pointer to the resulting string
  */
-int _atoi(char *s)
+char *_strncat(char *dest, char *src, int n)
 {
-    int i, d, n, len, f, digit;
+    int dest_len = 0;
+    int i;
 
-    i = 0;
-    d = 0;
-    n = 0;
-    len = 0;
-    f = 0;
-    digit = 0;
+    while (dest[dest_len] != '\0')
+        dest_len++;
 
-    while (s[len] != '\0')
-        len++;
+    for (i = 0; i < n && src[i] != '\0'; i++)
+        dest[dest_len++] = src[i];
 
-    while (i < len && f == 0)
-    {
-        if (s[i] == '-')
-            ++d;
-
-        if (s[i] >= '0' && s[i] <= '9')
-        {
-            digit = s[i] - '0';
-            if (d % 2)
-                digit = -digit;
-            n = n * 10 + digit;
-            f = 1;
-            if (s[i + 1] < '0' || s[i + 1] > '9')
-                break;
-            f = 0;
-        }
-        i++;
-    }
-
-    if (f == 0)
-        return (0);
-
-    return (n);
+    dest[dest_len] = '\0';
+    return (dest);
 }
 EOF
 
-# Create 101-keygen.c
-cat <<EOF > 101-keygen.c
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+# Create 2-strncpy.c
+cat <<EOF > 2-strncpy.c
+#include "main.h"
 
 /**
- * main - program that generates random valid
- * passwords for the program 101-crackme
+ * _strncpy - copies a string up to n bytes
+ * @dest: destination string
+ * @src: source string
+ * @n: number of bytes to copy from src
  *
- * Return: Always 0 (Success)
+ * Return: pointer to the resulting string
  */
-int main(void)
+char *_strncpy(char *dest, char *src, int n)
 {
-    int pass[100];
-    int i, sum, n;
+    int i;
 
-    sum = 0;
+    for (i = 0; i < n && src[i] != '\0'; i++)
+        dest[i] = src[i];
 
-    srand(time(NULL));
+    for (; i < n; i++)
+        dest[i] = '\0';
 
-    for (i = 0; i < 100; i++)
+    return (dest);
+}
+EOF
+
+# Create 3-strcmp.c
+cat <<EOF > 3-strcmp.c
+#include "main.h"
+
+/**
+ * _strcmp - compares two strings
+ * @s1: first string
+ * @s2: second string
+ *
+ * Return: 0 if strings are equal, positive value if s1 is greater, negative
+ * value if s2 is greater
+ */
+int _strcmp(char *s1, char *s2)
+{
+    int i;
+
+    for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++)
     {
-        pass[i] = rand() % 78;
-        sum += (pass[i] + '0');
-        putchar(pass[i] + '0');
-        if ((2772 - sum) - '0' < 78)
-        {
-            n = 2772 - sum - '0';
-            sum += n;
-            putchar(n + '0');
-            break;
-        }
+        if (s1[i] != s2[i])
+            return (s1[i] - s2[i]);
     }
+
+    if (s1[i] != '\0')
+        return (s1[i]);
+
+    if (s2[i] != '\0')
+        return (-s2[i]);
 
     return (0);
 }
 EOF
 
+# Create 4-rev_array.c
+cat <<EOF > 4-rev_array.c
+#include "main.h"
+
+/**
+ * reverse_array - reverses the content of an array of integers
+ * @a: array of integers
+ * @n: number of elements in the array
+ */
+void reverse_array(int *a, int n)
+{
+    int tmp, i;
+
+    for (i = 0; i < n / 2; i++)
+    {
+        tmp = a[i];
+        a[i] = a[n - i - 1];
+        a[n - i - 1] = tmp;
+    }
+}
+EOF
+
+# Create 5-string_toupper.c
+cat <<EOF > 5-string_toupper.c
+#include "main.h"
+
+/**
+ * string_toupper - changes all lowercase letters of a string to uppercase
+ * @str: input string
+ *
+ * Return: pointer to the resulting string
+ */
+char *string_toupper(char *str)
+{
+    int i;
+
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] >= 'a' && str[i] <= 'z')
+            str[i] -= 32;
+    }
+
+    return (str);
+}
+EOF
+
+# Create 6-cap_string.c
+cat <<EOF > 6-cap_string.c
+#include "main.h"
+
+/**
+ * cap_string - capitalizes all words of a string
+ * @str: input string
+ *
+ * Return: pointer to the resulting string
+ */
+char *cap_string(char *str)
+{
+    int i;
+    int is_word;
+
+    is_word = 0;
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        if (str[i] >= 'a' && str[i] <= 'z')
+        {
+            if (is_word == 0)
+                str[i] -= 32;
+
+            is_word = 1;
+        }
+        else if ((str[i] >= 'A' && str[i] <= 'Z') ||
+                 (str[i] >= '0' && str[i] <= '9'))
+        {
+            is_word = 1;
+        }
+        else
+        {
+            is_word = 0;
+        }
+    }
+
+    return (str);
+}
+EOF
+
+# Create 7-leet.c
+cat <<EOF > 7-leet.c
+#include "main.h"
+
+/**
+ * leet - encodes a string into 1337
+ * @str: input string
+ *
+ * Return: pointer to the resulting string
+ */
+char *leet(char *str)
+{
+    int i, j;
+    char leet_letters[] = "AEOTL";
+    char leet_numbers[] = "43071";
+
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        for (j = 0; leet_letters[j] != '\0'; j++)
+        {
+            if (str[i] == leet_letters[j] || str[i] == leet_letters[j] + 32)
+                str[i] = leet_numbers[j];
+        }
+    }
+
+    return (str);
+}
+EOF
+
+# Create 8-rot13.c
+cat <<EOF > 8-rot13.c
+#include "main.h"
+
+/**
+ * rot13 - encodes a string using rot13
+ * @str: input string
+ *
+ * Return: pointer to the resulting string
+ */
+char *rot13(char *str)
+{
+    int i, j;
+    char alphabet[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char rot13[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
+
+    for (i = 0; str[i] != '\0'; i++)
+    {
+        for (j = 0; alphabet[j] != '\0'; j++)
+        {
+            if (str[i] == alphabet[j])
+            {
+                str[i] = rot13[j];
+                break;
+            }
+        }
+    }
+
+    return (str);
+}
+EOF
+
+# Create 100-print_number.c
+cat <<EOF > 100-print_number.c
+#include "main.h"
+
+/**
+ * print_number - prints an integer
+ * @n: input integer
+ */
+void print_number(int n)
+{
+    int digits, divisor, i, last_digit;
+
+    if (n == 0)
+    {
+        _putchar('0');
+        return;
+    }
+
+    if (n < 0)
+    {
+        _putchar('-');
+        n = -n;
+    }
+
+    digits = 0;
+    divisor = 1;
+    while (n / divisor != 0)
+    {
+        digits++;
+        divisor *= 10;
+    }
+
+    divisor /= 10;
+
+    for (i = 0; i < digits; i++)
+    {
+        last_digit = n / divisor;
+        _putchar(last_digit + '0');
+        n = n - (last_digit * divisor);
+        divisor /= 10;
+    }
+}
+EOF
+
+# Create 101-infinite_add.c
+cat <<EOF > 101-infinite_add.c
+#include "main.h"
+
+/**
+ * reverse_string - reverses a string
+ * @s: input string
+ */
+void reverse_string(char *s)
+{
+    int len = 0, i;
+    char temp;
+
+    while (s[len] != '\0')
+        len++;
+
+    for (i = 0; i < len / 2; i++)
+    {
+        temp = s[i];
+        s[i] = s[len - i - 1];
+        s[len - i - 1] = temp;
+    }
+}
+
+/**
+ * infinite_add - adds two numbers
+ * @n1: first number as a string
+ * @n2: second number as a string
+ * @r: buffer to store the result
+ * @size_r: buffer size
+ * Return: pointer to the result
+ */
+char *infinite_add(char *n1, char *n2, char *r, int size_r)
+{
+    int i, j, k, carry, sum;
+
+    i = 0;
+    j = 0;
+    carry = 0;
+
+    while (n1[i] != '\0')
+        i++;
+
+    while (n2[j] != '\0')
+        j++;
+
+    if (i >= size_r || j >= size_r)
+        return (0);
+
+    r[size_r - 1] = '\0';
+    i--;
+    j--;
+    k = size_r - 2;
+
+    while (i >= 0 || j >= 0)
+    {
+        sum = carry;
+
+        if (i >= 0)
+            sum += n1[i] - '0';
+
+        if (j >= 0)
+            sum += n2[j] - '0';
+
+        carry = sum / 10;
+        r[k] = (sum % 10) + '0';
+
+        i--;
+        j--;
+        k--;
+    }
+
+    if (carry)
+    {
+        if (size_r == 1)
+            return (0);
+
+        r[k] = carry + '0';
+    }
+    else
+        k++;
+
+    reverse_string(r + k);
+    return (r + k);
+}
+EOF
+
+# Create 102-magic.c
+cat <<EOF > 102-magic.c
+#include <stdio.h>
+
+void print_number(int n);
+
+/**
+ * main - Entry point
+ *
+ * Return: Always 0
+ */
+int main(void)
+{
+    int n;
+
+    n = 98;
+    printf("n = %d\n", n);
+    print_number(n);
+    printf("\n");
+    n = 402;
+    printf("n = %d\n", n);
+    print_number(n);
+    printf("\n");
+    n = 1024;
+    printf("n = %d\n", n);
+    print_number(n);
+    printf("\n");
+    n = 0;
+    printf("n = %d\n", n);
+    print_number(n);
+    printf("\n");
+    n = -98;
+    printf("n = %d\n", n);
+    print_number(n);
+    printf("\n");
+    return (0);
+}
+EOF
+
+# Create 103-print_buffer.c
+cat <<EOF > 103-print_buffer.c
+#include "main.h"
+#include <stdio.h>
+
+/**
+ * print_buffer - Prints the content of an array buffer
+ * @b: The array buffer
+ * @size: The size of the buffer
+ */
+void print_buffer(char *b, int size)
+{
+    int i, j;
+
+    if (size <= 0)
+        printf("\n");
+
+    for (i = 0; i < size; i += 10)
+    {
+        printf("%08x: ", i);
+        for (j = 0; j < 10; j++)
+        {
+            if (i + j >= size)
+                printf("  ");
+            else
+                printf("%02x", b[i + j]);
+
+            if (j % 2 != 0)
+                printf(" ");
+        }
+
+        for (j = 0; j < 10; j++)
+        {
+            if (i + j >= size)
+                break;
+
+            if (b[i + j] >= ' ' && b[i + j] <= '~')
+                printf("%c", b[i + j]);
+            else
+                printf(".");
+        }
+
+        printf("\n");
+    }
+}
+EOF
+
 # Add execution permissions to the script files
-chmod +x *.c
+chmod +x _putchar.c 0-strcat.c 1-strncat.c 2-strncpy.c 3-strcmp.c 4-rev_array.c 5-string_toupper.c 6-cap_string.c 7-leet.c 8-rot13.c 100-print_number.c 101-infinite_add.c 102-magic.c 103-print_buffer.c
 
 echo "All files have been created successfully!"
 
