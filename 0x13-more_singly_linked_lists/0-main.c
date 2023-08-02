@@ -1,20 +1,24 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "lists.h"
 
 /**
- * main - entry point for testing the linked list functions
- * Return: Always 0
+ * main - check the code
+ * 
+ * Return: Always 0.
  */
 int main(void)
 {
-    listint_t *head = NULL;
+    listint_t *head;
+    listint_t *new;
+    listint_t hello = {8, NULL};
+    size_t n;
 
-    add_nodeint_end(&head, 1);
-    add_nodeint_end(&head, 3);
-    add_nodeint_end(&head, 5);
-
-    print_listint(head);
-
-    return (0);
-}
+    head = &hello;
+    new = malloc(sizeof(listint_t));
+    if (new == NULL)
+    {
+        printf("Error\n");
+        return (1);
+    }
