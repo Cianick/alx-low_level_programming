@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Create directory for your project (optional)
+mkdir -p bit_manipulation
+
+# Create all files with content
+cat << EOF > README.md
+Bit Manipulation project
+EOF
+
+cat << EOF > Main.h
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
+int _putchar(char c);
+unsigned int binary_to_uint(const char *b);
+void print_binary(unsigned long int n);
+int get_bit(unsigned long int n, unsigned int index);
+int set_bit(unsigned long int *n, unsigned int index);
+int clear_bit(unsigned long int *n, unsigned int index);
+unsigned int flip_bits(unsigned long int n, unsigned long int m);
+int get_endianness(void);
+
+#endif
+EOF
+
+cat << EOF > _putchar.c
+#include <unistd.h>
+
+/**
+ * _putchar - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: On success 1.
+ * On error, -1 is returned, and errno is set appropriately.
+ */
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+EOF
+
+# Remaining files... (copy and paste your code for each file individually)
+
+# Make all files executable
+chmod +x *.c Main.h
+
+echo "All files created and made executable!"
+
+# Compile and run your program (replace "main.c" with the actual entry po
+
