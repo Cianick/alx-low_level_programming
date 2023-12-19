@@ -1,0 +1,122 @@
+#!/bin/bash
+
+# Create main.h
+echo "#ifndef MAIN_H" > main.h
+echo "#define MAIN_H" >> main.h
+echo "" >> main.h
+echo "#include <sys/types.h>" >> main.h
+echo "#include <sys/stat.h>" >> main.h
+echo "#include <fcntl.h>" >> main.h
+echo "#include <unistd.h>" >> main.h
+echo "" >> main.h
+echo "ssize_t read_textfile(const char *filename, size_t letters);" >> main.h
+echo "int create_file(const char *filename, char *text_content);" >> main.h
+echo "int append_text_to_file(const char *filename, char *text_content);" >> main.h
+echo "" >> main.h
+echo "#endif" >> main.h
+
+# Create 0-read_textfile.c
+echo "#include \"main.h\"" > 0-read_textfile.c
+echo "#include <stdlib.h>" >> 0-read_textfile.c
+echo "" >> 0-read_textfile.c
+echo "/**" >> 0-read_textfile.c
+echo " * read_textfile- Read text file print to STDOUT." >> 0-read_textfile.c
+echo " * @filename: text file being read" >> 0-read_textfile.c
+echo " * @letters: number of letters to be read" >> 0-read_textfile.c
+echo " * Return: w- actual number of bytes read and printed" >> 0-read_textfile.c
+echo " *        0 when function fails or filename is NULL." >> 0-read_textfile.c
+echo " */" >> 0-read_textfile.c
+echo "ssize_t read_textfile(const char *filename, size_t letters)" >> 0-read_textfile.c
+echo "{" >> 0-read_textfile.c
+echo "    char *buf;" >> 0-read_textfile.c
+echo "    ssize_t fd, w, t;" >> 0-read_textfile.c
+echo "" >> 0-read_textfile.c
+echo "    fd = open(filename, O_RDONLY);" >> 0-read_textfile.c
+echo "    if (fd == -1)" >> 0-read_textfile.c
+echo "        return (0);" >> 0-read_textfile.c
+echo "    buf = malloc(sizeof(char) * letters);" >> 0-read_textfile.c
+echo "    t = read(fd, buf, letters);" >> 0-read_textfile.c
+echo "    w = write(STDOUT_FILENO, buf, t);" >> 0-read_textfile.c
+echo "" >> 0-read_textfile.c
+echo "    free(buf);" >> 0-read_textfile.c
+echo "    close(fd);" >> 0-read_textfile.c
+echo "    return (w);" >> 0-read_textfile.c
+echo "}" >> 0-read_textfile.c
+
+# Create 1-create_file.c
+echo "#include \"main.h\"" > 1-create_file.c
+echo "" >> 1-create_file.c
+echo "/**" >> 1-create_file.c
+echo " * create_file - Creates a file." >> 1-create_file.c
+echo " * @filename: A pointer to the name of the file to create." >> 1-create_file.c
+echo " * @text_content: A pointer to a string to write to the file." >> 1-create_file.c
+echo " *" >> 1-create_file.c
+echo " * Return: If the function fails - -1." >> 1-create_file.c
+echo " *         Otherwise - 1." >> 1-create_file.c
+echo " */" >> 1-create_file.c
+echo "int create_file(const char *filename, char *text_content)" >> 1-create_file.c
+echo "{" >> 1-create_file.c
+echo "    int fd, w, len = 0;" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    if (filename == NULL)" >> 1-create_file.c
+echo "        return (-1);" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    if (text_content != NULL)" >> 1-create_file.c
+echo "    {" >> 1-create_file.c
+echo "        for (len = 0; text_content[len];)" >> 1-create_file.c
+echo "            len++;" >> 1-create_file.c
+echo "    }" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0600);" >> 1-create_file.c
+echo "    w = write(fd, text_content, len);" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    if (fd == -1 || w == -1)" >> 1-create_file.c
+echo "        return (-1);" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    close(fd);" >> 1-create_file.c
+echo "" >> 1-create_file.c
+echo "    return (1);" >> 1-create_file.c
+echo "}" >> 1-create_file.c
+
+# Create 2-append_text_to_file.c
+echo "#include \"main.h\"" > 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "/**" >> 2-append_text_to_file.c
+echo " * append_text_to_file - Appends text at the end of a file." >> 2-append_text_to_file.c
+echo " * @filename: A pointer to the name of the file." >> 2-append_text_to_file.c
+echo " * @text_content: The string to add to the end of the file." >> 2-append_text_to_file.c
+echo " *" >> 2-append_text_to_file.c
+echo " * Return: If the function fails or filename is NULL - -1." >> 2-append_text_to_file.c
+echo " *         If the file does not exist the user lacks write permissions - -1." >> 2-append_text_to_file.c
+echo " *         Otherwise - 1." >> 2-append_text_to_file.c
+echo " */" >> 2-append_text_to_file.c
+echo "int append_text_to_file(const char *filename, char *text_content)" >> 2-append_text_to_file.c
+echo "{" >> 2-append_text_to_file.c
+echo "    int o, w, len = 0;" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    if (filename == NULL)" >> 2-append_text_to_file.c
+echo "        return (-1);" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    if (text_content != NULL)" >> 2-append_text_to_file.c
+echo "    {" >> 2-append_text_to_file.c
+echo "        for (len = 0; text_content[len];)" >> 2-append_text_to_file.c
+echo "            len++;" >> 2-append_text_to_file.c
+echo "    }" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    o = open(filename, O_WRONLY | O_APPEND);" >> 2-append_text_to_file.c
+echo "    w = write(o, text_content, len);" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    if (o == -1 || w == -1)" >> 2-append_text_to_file.c
+echo "        return (-1);" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    close(o);" >> 2-append_text_to_file.c
+echo "" >> 2-append_text_to_file.c
+echo "    return (1);" >> 2-append_text_to_file.c
+echo "}" >> 2-append_text_to_file.c
+
+# Make all the C files executable
+chmod +x *.c
+
+# Display a message indicating successful file creation
+echo "Files created successfully!"
+
