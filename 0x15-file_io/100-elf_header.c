@@ -63,7 +63,6 @@ void print_magic(unsigned char *e_ident)
     }
 }
 
-// ... (rest of the code remains unchanged)
 
 /**
  * main - Displays the information contained in the
